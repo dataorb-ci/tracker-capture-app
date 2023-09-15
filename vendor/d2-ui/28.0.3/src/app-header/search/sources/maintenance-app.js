@@ -23,10 +23,10 @@ map(addToTranslationConfig, map(camelCaseToUnderscores, flatten(map('items', mai
 
 const getMenuItemsFromModelName = curry((section, modelName) => ({
     name: camelCaseToUnderscores(modelName),
-    defaultAction: `/dlms-web-maintenance/#/list/${section}/${modelName}`,
-    icon: '/icons/dlms-web-maintenance.png',
+    defaultAction: `/dhis-web-maintenance/#/list/${section}/${modelName}`,
+    icon: '/icons/dhis-web-maintenance.png',
     description: '',
-    parentApp: 'dlms-web-maintenance',
+    parentApp: 'dhis-web-maintenance',
 }));
 
 const toKeyValueArray = obj => Object

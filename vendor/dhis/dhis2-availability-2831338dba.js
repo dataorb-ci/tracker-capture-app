@@ -50,7 +50,7 @@ dhis2.availability.startAvailabilityCheck = function( onlineInterval, offlineInt
   var baseUrl = dhis2.util.BASEURL;
   function _checkAvailability() {
     $.ajax({
-      url: baseUrl + "/dlms-web-commons-stream/ping.action",
+      url: baseUrl + "/dhis-web-commons-stream/ping.action",
       cache: false,
       timeout: 30000,
       dataType: "text",
@@ -104,7 +104,7 @@ dhis2.availability.syncCheckAvailability = function() {
   var isLoggedIn = false;
   var baseUrl = dhis2.util.BASEURL;
   $.ajax({
-    url: baseUrl + "/dlms-web-commons-stream/ping.action",
+    url: baseUrl + "/dhis-web-commons-stream/ping.action",
     async: false,
     cache: false,
     timeout: 30000,

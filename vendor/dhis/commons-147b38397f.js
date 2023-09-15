@@ -98,7 +98,7 @@ function translateWithContext( context )
  */
 function translate( className, uid )
 {
-    var url = "../dlms-web-commons/i18n.action?className=" + className + "&uid=" + uid + "&returnUrl=" + htmlEncode( window.location.href );
+    var url = "../dhis-web-commons/i18n.action?className=" + className + "&uid=" + uid + "&returnUrl=" + htmlEncode( window.location.href );
     
     window.location.href = url; 
 }
@@ -164,7 +164,7 @@ function joinNameableObjects( objects )
 function getHelpContent( id )
 {
     $.get( 
-       '../dlms-web-commons-about/getHelpContent.action',
+       '../dhis-web-commons-about/getHelpContent.action',
        { "id": id },
        function( data )
        {

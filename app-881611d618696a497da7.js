@@ -196,7 +196,7 @@
 	    }).when('/program-statistics', {
 	        templateUrl: 'components/report/program-statistics.html',
 	        controller: 'ProgramStatisticsController',
-	        css: '../dlms-web-commons/javascripts/nvd3/nv.d3.css'
+	        css: '../dhis-web-commons/javascripts/nvd3/nv.d3.css'
 	    }).when('/overdue-events', {
 	        templateUrl: 'components/report/overdue-events.html',
 	        controller: 'OverdueEventsController'
@@ -204,7 +204,7 @@
 	        templateUrl: 'components/report/upcoming-events.html',
 	        controller: 'UpcomingEventsController'
 	    }).otherwise({
-	        redirectTo: '../dlms-web-commons/security/login.action'
+	        redirectTo: '../dhis-web-commons/security/login.action'
 	    });
 	
 	    $translateProvider.preferredLanguage('en');
@@ -4867,7 +4867,7 @@
 	            });
 	
 	            $("#searchField").autocomplete({
-	                source: "../dlms-web-commons/ouwt/getOrganisationUnitsByName.action",
+	                source: "../dhis-web-commons/ouwt/getOrganisationUnitsByName.action",
 	                select: function select(event, ui) {
 	                    $("#searchField").val(ui.item.value);
 	                    selection.findByName();
@@ -14873,7 +14873,7 @@
 	            lat = coordinates[1];
 	        }
 	        var modalInstance = $modal.open({
-	            templateUrl: '../dlms-web-commons/angular-forms/map.html',
+	            templateUrl: '../dhis-web-commons/angular-forms/map.html',
 	            controller: 'MapController',
 	            windowClass: 'modal-full-window',
 	            resolve: {
@@ -14899,7 +14899,7 @@
 	            lat = coordinates[1];
 	        }
 	        var modalInstance = $modal.open({
-	            templateUrl: '../dlms-web-commons/angular-forms/map.html',
+	            templateUrl: '../dhis-web-commons/angular-forms/map.html',
 	            controller: 'MapController',
 	            windowClass: 'modal-full-window',
 	            resolve: {
@@ -14918,7 +14918,7 @@
 	
 	    $scope.showProgramStageMap = function (event) {
 	        var modalInstance = $modal.open({
-	            templateUrl: '../dlms-web-commons/angular-forms/map.html',
+	            templateUrl: '../dhis-web-commons/angular-forms/map.html',
 	            controller: 'MapController',
 	            windowClass: 'modal-full-window',
 	            resolve: {
@@ -16118,9 +16118,9 @@
 	        popupWin.document.open();
 	        popupWin.document.write('<html>\n\
 	                                        <head>\n\
-	                                                <link rel="stylesheet" type="text/css" href="../dlms-web-commons/bootstrap/css/bootstrap.min.css" />\n\
-	                                                <link type="text/css" rel="stylesheet" href="../dlms-web-commons/javascripts/angular/plugins/select.css">\n\
-	                                                <link type="text/css" rel="stylesheet" href="../dlms-web-commons/javascripts/angular/plugins/select2.css">\n\
+	                                                <link rel="stylesheet" type="text/css" href="../dhis-web-commons/bootstrap/css/bootstrap.min.css" />\n\
+	                                                <link type="text/css" rel="stylesheet" href="../dhis-web-commons/javascripts/angular/plugins/select.css">\n\
+	                                                <link type="text/css" rel="stylesheet" href="../dhis-web-commons/javascripts/angular/plugins/select2.css">\n\
 	                                                <link rel="stylesheet" type="text/css" href="styles/style.css" />\n\
 	                                                <link rel="stylesheet" type="text/css" href="styles/print.css" />\n\
 	                                        </head>\n\
@@ -20003,8 +20003,8 @@
 	        popupWin.document.open();
 	        popupWin.document.write('<html>\n\
 	                                        <head>\n\
-	                                                <link rel="stylesheet" type="text/css" href="../dlms-web-commons/bootstrap/css/bootstrap.min.css" />\n\
-	                                                <link rel="stylesheet" type="text/css" href="../dlms-web-commons/css/print.css" />\n\
+	                                                <link rel="stylesheet" type="text/css" href="../dhis-web-commons/bootstrap/css/bootstrap.min.css" />\n\
+	                                                <link rel="stylesheet" type="text/css" href="../dhis-web-commons/css/print.css" />\n\
 	                                                <link rel="stylesheet" type="text/css" href="styles/style.css" />\n\
 	                                                <link rel="stylesheet" type="text/css" href="styles/print.css" />\n\
 	                                        </head>\n\
@@ -21068,7 +21068,7 @@
 	    };
 	
 	    $scope.showEventInCaptureApp = function (eventId) {
-	        location.href = '../dlms-web-capture/index.html#/viewEvent?viewEventId=' + eventId;
+	        location.href = '../dhis-web-capture/index.html#/viewEvent?viewEventId=' + eventId;
 	    };
 	
 	    var setRelationships = function setRelationships() {

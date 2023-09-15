@@ -38,7 +38,7 @@ const ProfileMenu = addD2Context((props, { d2 }) => {
                     <div style={{ width: '100%', lineHeight: '1.5rem' }}>{currentUser.email}</div>
                 </div>
             </div>
-            <FlatButton style={{ width: '100%', textAlign: 'center' }} href={`${getBaseUrl(d2)}/dlms-web-commons-security/logout.action`}>
+            <FlatButton style={{ width: '100%', textAlign: 'center' }} href={`${getBaseUrl(d2)}/dhis-web-commons-security/logout.action`}>
                 {d2.i18n.getTranslation('log_out')}
             </FlatButton>
         </div>

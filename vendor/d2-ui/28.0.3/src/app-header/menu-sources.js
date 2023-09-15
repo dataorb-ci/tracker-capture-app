@@ -14,36 +14,36 @@ config.i18n.strings.add('about_dhis2');
 const profileMenuData = [
     {
         name: 'settings',
-        namespace: '/dlms-web-user-profile',
-        defaultAction: '/dlms-web-user-profile/#/settings',
+        namespace: '/dhis-web-user-profile',
+        defaultAction: '/dhis-web-user-profile/#/settings',
         icon: '/icons/usersettings.png',
         description: '',
     },
     {
         name: 'profile',
-        namespace: '/dlms-web-user-profile',
-        defaultAction: '/dlms-web-user-profile/#/profile',
+        namespace: '/dhis-web-user-profile',
+        defaultAction: '/dhis-web-user-profile/#/profile',
         icon: '/icons/function-profile.png',
         description: '',
     },
     {
         name: 'account',
-        namespace: '/dlms-web-user-profile',
-        defaultAction: '/dlms-web-user-profile/#/account',
+        namespace: '/dhis-web-user-profile',
+        defaultAction: '/dhis-web-user-profile/#/account',
         icon: '/icons/function-account.png',
         description: '',
     },
     {
         name: 'help',
-        namespace: '/dlms-web-commons-about',
+        namespace: '/dhis-web-commons-about',
         defaultAction: 'https://dhis2.github.io/dhis2-docs/master/en/user/html/dhis2_user_manual_en.html',
         icon: '/icons/function-account.png',
         description: '',
     },
     {
         name: 'about_dhis2',
-        namespace: '/dlms-web-commons-about',
-        defaultAction: '/dlms-web-commons-about/about.action',
+        namespace: '/dhis-web-commons-about',
+        defaultAction: '/dhis-web-commons-about/about.action',
         icon: '/icons/function-about-dhis2.png',
         description: '',
     },
@@ -98,7 +98,7 @@ function getTranslationsForMenuItems({ modules }) {
  */
 function removeMenuManagementModule({ modules }) {
     return {
-        modules: modules.filter(module => module.name !== 'dlms-web-menu-management'),
+        modules: modules.filter(module => module.name !== 'dhis-web-menu-management'),
     };
 }
 
@@ -111,7 +111,7 @@ function loadMenuItems() {
 
             // This path is only correct when the manifest has '..' as the baseUrl and a versioned api endpoint is used
             // TODO: This should have a proper API endpoint
-            return api.get(`${baseUrl}/dlms-web-commons/menu/getModules.action?_=${(new Date()).getTime()}`);
+            return api.get(`${baseUrl}/dhis-web-commons/menu/getModules.action?_=${(new Date()).getTime()}`);
         })
         .then(getTranslationsForMenuItems)
         .then(removeMenuManagementModule)

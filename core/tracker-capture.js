@@ -119,7 +119,7 @@ function ajax_login()
         var username = $('#username').val();
         var password = $('#password').val();
 
-        $.post('../dlms-web-commons-security/login.action', {
+        $.post('../dhis-web-commons-security/login.action', {
             'j_username': username,
             'j_password': password
         }).success(function()
