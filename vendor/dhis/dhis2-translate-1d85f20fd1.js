@@ -62,7 +62,7 @@ dhis2.translate = dhis2.translate || {};
                 }
 
                 if (typeof dhis2.settings.baseUrl !== "string") {
-                    throw new TypeError("DataOrb settings: baseUrl should be a string");
+                    throw new TypeError("Dhis2 settings: baseUrl should be a string");
                 }
 
                 if (urlParts[urlParts.length - 1] !== "") {

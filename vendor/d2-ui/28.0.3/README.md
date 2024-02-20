@@ -11,16 +11,16 @@ UI Component library for developing [DHIS2](http://www.dhis2.org) applications. 
 
 ### Get It! 
 
-__Latest stable version for your DataOrb release__
+__Latest stable version for your dhis2 release__
 
 > Use @<dhis2-release-version> to get the latest version applicable to that installation
 
-For DataOrb 2.25
+For DHIS2 2.25
 ```
 npm install --save d2-ui@25
 ```
 
-For DataOrb 2.24
+For DHIS2 2.24
 ```
 npm install --save d2-ui@24
 ```

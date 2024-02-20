@@ -146,7 +146,7 @@ will be printed to the console.
 ##### Documentation
 - The `app-header/HeaderBar` will replace the original `header-bar/HeaderBar`
   since there are currently apps that still use the old headerbar it is not yet
-  removed. As of DataOrb 2.24 all apps will/should be using the new header bar.
+  removed. As of DHIS2 2.24 all apps will/should be using the new header bar.
 
 
 
@@ -167,7 +167,7 @@ will be printed to the console.
 
 ##### Documentation
 
-- Examples that use the DataOrb API will read dev server configuration from
+- Examples that use the DHIS 2 API will read dev server configuration from
   `DHIS2_HOME/config.js[on]`, just like the other front end apps. This file
   should export and object with two properties: `baseUrl` and `authorization`.
 

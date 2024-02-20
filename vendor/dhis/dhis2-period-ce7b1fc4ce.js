@@ -1025,7 +1025,7 @@ dhis2.period.FinancialOctoberGenerator = function( calendar, format ) {
 dhis2.period.FinancialOctoberGenerator.prototype = Object.create(dhis2.period.FinancialBaseGenerator.prototype);
 
 /**
- * Convenience method to get DHIS2/HMIS months in a year
+ * Convenience method to get DataOrb/HMIS months in a year
  */
 function getHMISMonthsInYear( calendar, year ) {
 

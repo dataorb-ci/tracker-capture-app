@@ -474,7 +474,7 @@ var d2Directives = angular.module('d2Directives', [])
     };
 })
 
-.directive('d2FileInput', function($translate, DHIS2EventService, DHIS2EventFactory, FileService, NotificationService){
+.directive('d2FileInput', function($translate, DataOrbEventService, DataOrbEventFactory, FileService, NotificationService){
 
     return {
         restrict: "A",
@@ -503,9 +503,9 @@ var d2Directives = angular.module('d2Directives', [])
                         scope.d2FileInputName[scope.d2FileInput.event][de] = data.response.fileResource.name;
                         if( update ){
                             var updatedSingleValueEvent = {program: scope.d2FileInput.program, event: scope.d2FileInput.event, dataValues: [{value: data.response.fileResource.id, dataElement:  de}]};
-                            var updatedFullValueEvent = DHIS2EventService.reconstructEvent(scope.d2FileInput, scope.d2FileInputPs.programStageDataElements);
-                            DHIS2EventFactory.updateForSingleValue(updatedSingleValueEvent, updatedFullValueEvent).then(function(data){
-                                scope.d2FileInputList = DHIS2EventService.refreshList(scope.d2FileInputList, scope.d2FileInput);
+                            var updatedFullValueEvent = DataOrbEventService.reconstructEvent(scope.d2FileInput, scope.d2FileInputPs.programStageDataElements);
+                            DataOrbEventFactory.updateForSingleValue(updatedSingleValueEvent, updatedFullValueEvent).then(function(data){
+                                scope.d2FileInputList = DataOrbEventService.refreshList(scope.d2FileInputList, scope.d2FileInput);
                             });
                         }
                     }
@@ -797,7 +797,7 @@ var d2Directives = angular.module('d2Directives', [])
     };
 })
 
-.directive("d2Image",function($http, $compile, DHIS2URL, CurrentSelection){
+.directive("d2Image",function($http, $compile, DataOrbURL, CurrentSelection){
     return {
         restrict : 'E',
         scope : {
@@ -825,9 +825,9 @@ var d2Directives = angular.module('d2Directives', [])
             }
             
             if(scope.d2IsAttribute && scope.d2Tei) {
-                scope.path = DHIS2URL + "/trackedEntityInstances/" + scope.d2Tei.trackedEntityInstance + "/" + scope.d2DataElementId + "/image";
+                scope.path = DataOrbURL + "/trackedEntityInstances/" + scope.d2Tei.trackedEntityInstance + "/" + scope.d2DataElementId + "/image";
             } else if(!scope.d2IsAttribute && scope.d2Event) {
-                scope.path = DHIS2URL + "/events/files?eventUid=" + scope.d2Event.event + "&dataElementUid=" + scope.d2DataElementId;
+                scope.path = DataOrbURL + "/events/files?eventUid=" + scope.d2Event.event + "&dataElementUid=" + scope.d2DataElementId;
             }
             
 
@@ -846,7 +846,7 @@ var d2Directives = angular.module('d2Directives', [])
     }
 })
 
-.directive("d2ImageInList",function($http, $compile, DHIS2URL){
+.directive("d2ImageInList",function($http, $compile, DataOrbURL){
     return {
         restrict : 'E',
         scope : {
@@ -858,9 +858,9 @@ var d2Directives = angular.module('d2Directives', [])
         template: '<img ng-if="path" ng-src="{{path}}" onerror="this.onerror=null;this.src=\'\';" style="display: block; margin: auto; max-height: 150px; max-width: 100%;">',
         link : function(scope,elem,attrs){
             if(!scope.d2Tei && scope.d2EventId && scope.d2DeId) {
-                scope.path = DHIS2URL + "/events/files?eventUid=" + scope.d2EventId + "&dataElementUid=" + scope.d2DeId;
+                scope.path = DataOrbURL + "/events/files?eventUid=" + scope.d2EventId + "&dataElementUid=" + scope.d2DeId;
             } else if(scope.d2Tei && scope.d2AttributeId) {
-                scope.path = DHIS2URL + "/trackedEntityInstances/" + scope.d2Tei.id  + "/" + scope.d2AttributeId + "/image?height=100&width=100";
+                scope.path = DataOrbURL + "/trackedEntityInstances/" + scope.d2Tei.id  + "/" + scope.d2AttributeId + "/image?height=100&width=100";
             }
         }
     }
@@ -1221,7 +1221,7 @@ var d2Directives = angular.module('d2Directives', [])
             d2Required: '=',
             d2GeometryType: '='
         },
-        controller: function($scope, $modal, $filter, $translate, DHIS2COORDINATESIZE){
+        controller: function($scope, $modal, $filter, $translate, DataOrbCOORDINATESIZE){
             var geometryTypeDefinitions = {
                 //TEXT is handled as a POINT value
                 TEXT: {
@@ -1356,7 +1356,7 @@ var d2Directives = angular.module('d2Directives', [])
             function coordinateParser(coordinate){
                 var c;
                 if(dhis2.validation.isNumber(coordinate)){
-                    c = parseFloat($filter('number')(coordinate, DHIS2COORDINATESIZE));
+                    c = parseFloat($filter('number')(coordinate, DataOrbCOORDINATESIZE));
                 }
                 return c || coordinate;
             }
@@ -1380,7 +1380,7 @@ var d2Directives = angular.module('d2Directives', [])
             d2LngSaved: '=',
             d2CoordinateFormat: '='
         },
-        controller: function($scope, $modal, $filter, $translate, DHIS2COORDINATESIZE, NotificationService){
+        controller: function($scope, $modal, $filter, $translate, DataOrbCOORDINATESIZE, NotificationService){
 
             $scope.$watch('d2Object',function(newObj, oldObj){
                 if( angular.isObject(newObj) ){
@@ -1401,7 +1401,7 @@ var d2Directives = angular.module('d2Directives', [])
                         }
                         
                     	var coordinates = $scope.d2Object[$scope.id].slice(1,-1).split( ",");                        
-                    	if( !dhis2.validation.isNumber( coordinates[0] ) || !dhis2.validation.isNumber( coordinates[0] ) ){
+                    	if( !dhis2.validation.isNumber( coordinates[0] ) || !dhis2.validation.isNumber( coordinates[1] ) ){
                             NotificationService.showNotifcationDialog($translate.instant('error'), $translate.instant('invalid_coordinate_format') + ":  " + $scope.d2Object[$scope.id] );
                     	}
                         $scope.coordinateObject.coordinate = {latitude: parseFloat(coordinates[1]), longitude: parseFloat(coordinates[0])};
@@ -1447,11 +1447,11 @@ var d2Directives = angular.module('d2Directives', [])
                     }
                     if(angular.isObject(location)){
                         if( dhis2.validation.isNumber( location.lat ) ){
-                            location.lat = parseFloat( $filter('number')(location.lat, DHIS2COORDINATESIZE) );
+                            location.lat = parseFloat( $filter('number')(location.lat, DataOrbCOORDINATESIZE) );
                         }
                         
                         if( dhis2.validation.isNumber( location.lng ) ){
-                            location.lng = parseFloat( $filter('number')(location.lng, DHIS2COORDINATESIZE) );
+                            location.lng = parseFloat( $filter('number')(location.lng, DataOrbCOORDINATESIZE) );
                         }
                         
                         $scope.coordinateObject.coordinate.latitude = location.lat;
@@ -1515,11 +1515,11 @@ var d2Directives = angular.module('d2Directives', [])
                 if( angular.isDefined( $scope.d2CallbackFunction ) ){
                 	
                 	if( dhis2.validation.isNumber( $scope.coordinateObject.coordinate.latitude ) ){
-                		$scope.coordinateObject.coordinate.latitude = parseFloat( $filter('number')($scope.coordinateObject.coordinate.latitude, DHIS2COORDINATESIZE) );
+                		$scope.coordinateObject.coordinate.latitude = parseFloat( $filter('number')($scope.coordinateObject.coordinate.latitude, DataOrbCOORDINATESIZE) );
                 	}
                 	
                 	if( dhis2.validation.isNumber( $scope.coordinateObject.coordinate.longitude ) ){
-                		$scope.coordinateObject.coordinate.longitude = parseFloat( $filter('number')($scope.coordinateObject.coordinate.longitude, DHIS2COORDINATESIZE) );
+                		$scope.coordinateObject.coordinate.longitude = parseFloat( $filter('number')($scope.coordinateObject.coordinate.longitude, DataOrbCOORDINATESIZE) );
                 	}
                 	
                     if( $scope.d2CoordinateFormat === 'TEXT' ){                    

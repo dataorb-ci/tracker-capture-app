@@ -5,7 +5,7 @@ import { extractDataMatrixValue } from './dhis2.d2GS1DataMatrix.js';
 var d2Services = angular.module('d2Services', ['ngResource'])
 
 /* Factory for loading translation strings */
-.factory('i18nLoader', function ($q, $http, SessionStorageService, DHIS2URL) {
+.factory('i18nLoader', function ($q, $http, SessionStorageService, DataOrbURL) {
     
     var getTranslationStrings = function (locale) {
         var defaultUrl = 'i18n/i18n_app.properties';
@@ -36,7 +36,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
     var getUserSetting = function () {
         var locale = 'en';
         
-        var promise = $http.get( DHIS2URL + '/userSettings.json?key=keyDbLocale&key=keyUiLocale&key=keyStyle').then(function (response) {
+        var promise = $http.get( DataOrbURL + '/userSettings.json?key=keyDbLocale&key=keyUiLocale&key=keyStyle').then(function (response) {
             SessionStorageService.set('USER_SETTING', response.data);
             if (response.data &&response.data.keyUiLocale) {
                 locale = response.data.keyUiLocale;
@@ -451,16 +451,13 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                 const keyString = String(key);
 
                 // is key a name?
-                for(var i=0; i<options.length; i++){
-                    if( keyString === options[i].displayName){
-                        return options[i].code;
-                    }
+                const option = options.find(option => keyString === option.displayName);
+                if (option) {
+                    return option.code;
                 }
                 // is key a code?
-                for(var i=0; i<options.length; i++){
-                    if( keyString === options[i].code){
-                        return key;
-                    }
+                if (options.find(option => keyString === option.code)) {
+                    return key;
                 }
                 // not a part of the option set
                 return null;
@@ -474,16 +471,13 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                 const keyString = String(key);
 
                 // is key a code?
-                for(var i=0; i<options.length; i++){
-                    if( keyString === options[i].code){
-                        return options[i].displayName;
-                    }
+                const option = options.find(option => keyString === option.code);
+                if (option) {
+                    return option.displayName;
                 }
                 // is key a name?
-                for(var i=0; i<options.length; i++){
-                    if( keyString === options[i].displayName){
-                        return key;
-                    }
+                if (options.find(option => keyString === option.displayName)) {
+                    return key;
                 }
                 // not a part of the option set
                 return null;
@@ -1438,8 +1432,8 @@ var d2Services = angular.module('d2Services', ['ngResource'])
     };
 })
 
-.service('GridColumnService', function ($http, $q, DHIS2URL, $translate, SessionStorageService, NotificationService) {
-    var GRIDCOLUMNS_URL = DHIS2URL+'/userDataStore/gridColumns/';
+.service('GridColumnService', function ($http, $q, DataOrbURL, $translate, SessionStorageService, NotificationService) {
+    var GRIDCOLUMNS_URL = DataOrbURL+'/userDataStore/gridColumns/';
     return {
         columnExists: function (cols, id) {
             var colExists = false;
@@ -1501,7 +1495,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
 })
 
 /* Service for uploading/downloading file */
-.service('FileService', function ($http, DHIS2URL) {
+.service('FileService', function ($http, DataOrbURL) {
 
     return {
         get: function (uid) {
@@ -1811,7 +1805,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
 })
 
 /* service for executing tracker rules and broadcasting results */
-.service('TrackerRulesExecutionService', function($translate, SessionStorageService, VariableService, DateUtils, NotificationService, DHIS2EventFactory, OrgUnitFactory, CalendarService, OptionSetService, $rootScope, $q, $log, $filter, orderByFilter, MetaDataFactory){
+.service('TrackerRulesExecutionService', function($translate, SessionStorageService, VariableService, DateUtils, NotificationService, DataOrbEventFactory, OrgUnitFactory, CalendarService, OptionSetService, $rootScope, $q, $log, $filter, orderByFilter, MetaDataFactory){
     var NUMBER_OF_EVENTS_IN_SCOPE = 10;
 
     //Variables for storing scope and rules in memory from rules execution to rules execution:
@@ -1847,7 +1841,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
         //d2:hasValue('variableName') to avoid the further replacement, and make sure the correct input is fed into d2:hasValue.
         var avoidReplacementFunctions = ['d2:hasValue','d2:lastEventDate', 'd2:count', 'd2:countIfZeroPos', 'd2:countIfValue'];
         avoidReplacementFunctions.forEach(avoidReplaceFunction => {
-            expression = expression.replace( new RegExp("(" + avoidReplaceFunction + "\\() *[A#CV]\\{([\\w \\-\\_\\.]+)\\}(.*)\\)" ), "$1'$2'$3\)");
+            expression = expression.replaceAll( new RegExp("(" + avoidReplaceFunction + "\\() *[A#CV]\\{([\\w \\-\\_\\.]+)\\}", 'g'), "$1'$2'");
         });
 
         //Check if the expression contains program rule variables at all(any curly braces):
@@ -2984,14 +2978,8 @@ var d2Services = angular.module('d2Services', ['ngResource'])
             parameters: 1,
             execute: function(parameters, _, selectedOrgUnit) {
                 var group = parameters[0];
-                var isInGroup = "false";
                 var orgUnitGroups = (selectedOrgUnit && selectedOrgUnit.g) || [];
-                var foundGroup = orgUnitGroups.find(function(o) {return o.id === group || o.code === group});
-                if(foundGroup)
-                {
-                    isInGroup = "true"
-                }
-                return isInGroup;
+                return !!orgUnitGroups.find(function(o) {return o.id === group || o.code === group});
             },
         },
         "d2:hasUserRole": {
@@ -3281,7 +3269,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                     $rootScope.$broadcast("eventcreated", { event:newEvent });
                 }
                 else{
-                    DHIS2EventFactory.create(newEvent).then(function(result){
+                    DataOrbEventFactory.create(newEvent).then(function(result){
                        $rootScope.$broadcast("eventcreated", { event:newEvent });
                     }); 
                 }
@@ -4014,7 +4002,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
     }
 })
 
-.service('AuditHistoryDataService', function( $http, $translate, NotificationService, DHIS2URL ) {
+.service('AuditHistoryDataService', function( $http, $translate, NotificationService, DataOrbURL ) {
     this.getAuditHistoryData = function(dataId, dataType ) {
         var url="";
         if (dataType === "attribute") {
@@ -4040,7 +4028,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
 
 
 /* Factory for fetching OrgUnit */
-.factory('OrgUnitFactory', function($http, DHIS2URL, $q, $window, $translate, SessionStorageService, DateUtils, CurrentSelection) {
+.factory('OrgUnitFactory', function($http, DataOrbURL, $q, $window, $translate, SessionStorageService, DateUtils, CurrentSelection) {
     var orgUnit, orgUnitPromise, rootOrgUnitPromise,orgUnitTreePromise;
     var indexedDB = $window.indexedDB;
     var db = null;
@@ -4062,7 +4050,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
     return {
         getChildren: function(uid){
             if( orgUnit !== uid ){
-                orgUnitPromise = $http.get( DHIS2URL + '/organisationUnits/'+ uid + '.json?fields=id,path,programs[id],level,children[id,displayName,programs[id],level,children[id]]&paging=false' ).then(function(response){
+                orgUnitPromise = $http.get( DataOrbURL + '/organisationUnits/'+ uid + '.json?fields=id,path,programs[id],level,children[id,displayName,programs[id],level,children[id]]&paging=false' ).then(function(response){
                     orgUnit = uid;
                     return response.data;
                 });
@@ -4071,7 +4059,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
         },
         get: function(uid){
             if( orgUnit !== uid ){
-                orgUnitPromise = $http.get( DHIS2URL + '/organisationUnits/'+ uid + '.json?fields=id,displayName,programs[id],level,path' ).then(function(response){
+                orgUnitPromise = $http.get( DataOrbURL + '/organisationUnits/'+ uid + '.json?fields=id,displayName,programs[id],level,path' ).then(function(response){
                     orgUnit = uid;
                     return response.data;
                 });
@@ -4079,7 +4067,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
             return orgUnitPromise;
         },
         getByName: function(name){            
-            var promise = $http.get( DHIS2URL + '/organisationUnits.json?paging=false&fields=id,displayName,path,level,children[id,displayName,path,level,children[id]]&filter=displayName:ilike:' + name ).then(function(response){
+            var promise = $http.get( DataOrbURL + '/organisationUnits.json?paging=false&fields=id,displayName,path,level,children[id,displayName,path,level,children[id]]&filter=displayName:ilike:' + name ).then(function(response){
                 return response.data;
             });
             return promise;        
@@ -4093,7 +4081,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                 def.resolve( ous );
             }
             else{
-                var url = DHIS2URL + '/me.json?fields=organisationUnits[id,displayName,level,path,children[id,displayName,level,children[id]]],dataViewOrganisationUnits[id,displayName,level,path,children[id,displayName,level,children[id]]]&paging=false';
+                var url = DataOrbURL + '/me.json?fields=organisationUnits[id,displayName,level,path,children[id,displayName,level,children[id]]],dataViewOrganisationUnits[id,displayName,level,path,children[id,displayName,level,children[id]]]&paging=false';
                 $http.get( url ).then(function(response){
                     response.data.organisationUnits = response.data.dataViewOrganisationUnits && response.data.dataViewOrganisationUnits.length > 0 ? response.data.dataViewOrganisationUnits : response.data.organisationUnits;
                     delete response.data.dataViewOrganisationUnits;
@@ -4111,7 +4099,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                 def.resolve( ous );
             }
             else{
-                var url = DHIS2URL + '/me.json?fields=organisationUnits[id,displayName,programs[id],level,path,children[id,displayName,programs[id],level,children[id]]],teiSearchOrganisationUnits[id,displayName,programs[id],level,path,children[id,displayName,programs[id],level,children[id]]]&paging=false';
+                var url = DataOrbURL + '/me.json?fields=organisationUnits[id,displayName,programs[id],level,path,children[id,displayName,programs[id],level,children[id]]],teiSearchOrganisationUnits[id,displayName,programs[id],level,path,children[id,displayName,programs[id],level,children[id]]]&paging=false';
                 $http.get( url ).then(function(response){
                     response.data.organisationUnits = response.data.teiSearchOrganisationUnits && response.data.teiSearchOrganisationUnits.length > 0 ? response.data.teiSearchOrganisationUnits : response.data.organisationUnits;
                     delete response.data.teiSearchOrganisationUnits;
@@ -4121,7 +4109,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
             return def.promise;
         },
         getOrgUnits: function(uid,fieldUrl){
-            var url = DHIS2URL + '/organisationUnits.json?filter=id:eq:'+uid+'&'+fieldUrl+'&paging=false';
+            var url = DataOrbURL + '/organisationUnits.json?filter=id:eq:'+uid+'&'+fieldUrl+'&paging=false';
             orgUnitTreePromise = $http.get(url).then(function(response){
                 return response.data;
             });
@@ -4200,7 +4188,7 @@ var d2Services = angular.module('d2Services', ['ngResource'])
                                 deferred.resolve(e.target.result);
                             }
                             else{
-                                $http.get( DHIS2URL + '/organisationUnits/'+ uid + '.json?fields=id,displayName,code,closedDate,openingDate,organisationUnitGroups[id,code,name]' ).then(function(response){
+                                $http.get( DataOrbURL + '/organisationUnits/'+ uid + '.json?fields=id,displayName,code,closedDate,openingDate,organisationUnitGroups[id,code,name]' ).then(function(response){
                                     if( response && response.data ){
                                         deferred.resolve({
                                             id: response.data.id,
@@ -4249,8 +4237,8 @@ var d2Services = angular.module('d2Services', ['ngResource'])
         }
     };
 })
-.service('UserDataStoreService', function ($http, $q, DHIS2URL, $translate, SessionStorageService, NotificationService) {
-    var baseUrl = DHIS2URL+'/userDataStore';
+.service('UserDataStoreService', function ($http, $q, DataOrbURL, $translate, SessionStorageService, NotificationService) {
+    var baseUrl = DataOrbURL+'/userDataStore';
     var cached = {};
     var getUrl = function(container, name){
         return baseUrl + "/" + container + "/" + name;
