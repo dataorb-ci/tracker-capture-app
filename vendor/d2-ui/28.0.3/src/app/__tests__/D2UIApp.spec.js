@@ -109,7 +109,7 @@ describe('D2UIApp component', () => {
     });
 
     it('should render an error box when d2 can not be initialized', (done) => {
-        const promiseToD2 = Promise.reject('Unable to get schemas from the DataOrb API');
+        const promiseToD2 = Promise.reject('Unable to get schemas from the DHIS2 API');
 
         // Mock d2 init
         d2.init = jest.fn()
@@ -127,7 +127,7 @@ describe('D2UIApp component', () => {
         promiseToD2
             .catch(identity)
             .then(() => {
-                expect(component.children().children().prop('message')).toBe('Unable to get schemas from the DataOrb API');
+                expect(component.children().children().prop('message')).toBe('Unable to get schemas from the DHIS2 API');
                 done();
             })
             .catch(done);

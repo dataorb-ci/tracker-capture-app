@@ -49,7 +49,7 @@ var d2Controllers = angular.module('d2Controllers', [])
                 CommonUtils,
                 leafletData,
                 CurrentSelection,
-                DataOrbURL,
+                DHIS2URL,
                 NotificationService,
                 ModalService,
                 geometryType,
@@ -291,7 +291,7 @@ var d2Controllers = angular.module('d2Controllers', [])
     var currentOuLayer;
 
     function getGeoJsonByOuLevel(level, parent){
-        var url = DataOrbURL+'/organisationUnits.geojson?level='+level;
+        var url = DHIS2URL+'/organisationUnits.geojson?level='+level;
         if(parent){
             url+="&parent="+parent;
         }

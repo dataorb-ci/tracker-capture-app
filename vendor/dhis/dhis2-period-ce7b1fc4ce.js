@@ -172,7 +172,7 @@ dhis2.period.DatePicker.prototype.createRangedInstance = function( fromEl, toEl,
 };
 
 /**
- * A period generator that uses a specified calendar chronology to generate DataOrb periods.
+ * A period generator that uses a specified calendar chronology to generate DHIS 2 periods.
  *
  * There is probably no reason to use this directly, since on startup, two global variables have been made available:
  *  - dhis2.period.calendar   The currently selected system calendar
@@ -1025,7 +1025,7 @@ dhis2.period.FinancialOctoberGenerator = function( calendar, format ) {
 dhis2.period.FinancialOctoberGenerator.prototype = Object.create(dhis2.period.FinancialBaseGenerator.prototype);
 
 /**
- * Convenience method to get DataOrb/HMIS months in a year
+ * Convenience method to get DHIS2/HMIS months in a year
  */
 function getHMISMonthsInYear( calendar, year ) {
 
