@@ -172,7 +172,7 @@ dhis2.period.DatePicker.prototype.createRangedInstance = function( fromEl, toEl,
 };
 
 /**
- * A period generator that uses a specified calendar chronology to generate DHIS 2 periods.
+ * A period generator that uses a specified calendar chronology to generate DataOrb periods.
  *
  * There is probably no reason to use this directly, since on startup, two global variables have been made available:
  *  - dhis2.period.calendar   The currently selected system calendar
