@@ -22,7 +22,7 @@ const style = {
         primary1Color: blue500,
         primary2Color: blue700,
         primary3Color: lightBlack,
-        accent1Color: '#276696',
+        accent1Color: '#141A46',
         accent2Color: '#E9E9E9',
         accent3Color: grey500,
         textColor: darkBlack,

@@ -49,7 +49,7 @@ const styles = {
     },
     header: {
         height: 44,
-        background: '#276696',
+        background: '#141A46',
         color: 'white',
         fontSize: 16,
         fontWeight: 700,

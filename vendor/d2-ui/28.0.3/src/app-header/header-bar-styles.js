@@ -83,7 +83,7 @@ styles = {
 
     headerBar: {
         boxSizing: 'border-box',
-        background: '#276696',
+        background: '#141A46',
         display: 'flex',
         position: 'fixed',
         top: 0,
