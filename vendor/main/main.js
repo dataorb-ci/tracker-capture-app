@@ -116,20 +116,20 @@ dhis2.leftBar.resetPosition = function()
 
 dhis2.leftBar.setMenuVisible = function()
 {
-    $.get( '../dhis-web-commons/menu/setMenuState.action?state=VISIBLE' );        
+    $.get( '../web-commons/menu/setMenuState.action?state=VISIBLE' );        
 };
     
 dhis2.leftBar.setMenuExtended = function()
 {
-    $.get( '../dhis-web-commons/menu/setMenuState.action?state=EXTENDED' );
+    $.get( '../web-commons/menu/setMenuState.action?state=EXTENDED' );
 };
     
 dhis2.leftBar.setMenuHidden = function()
 {        
-    $.get( '../dhis-web-commons/menu/setMenuState.action?state=HIDDEN' );
+    $.get( '../web-commons/menu/setMenuState.action?state=HIDDEN' );
 };
     
 dhis2.leftBar.openHelpForm = function( id )
 {
-    window.open( "../dhis-web-commons/help/viewDynamicHelp.action?id=" + id, "Help", "width=800,height=600,scrollbars=yes" );
+    window.open( "../web-commons/help/viewDynamicHelp.action?id=" + id, "Help", "width=800,height=600,scrollbars=yes" );
 };

@@ -86,7 +86,7 @@ var d2Directives = angular.module('d2Directives', [])
             });
 
             $("#searchField").autocomplete({
-                source: "../dhis-web-commons/ouwt/getOrganisationUnitsByName.action",
+                source: "../web-commons/ouwt/getOrganisationUnitsByName.action",
                 select: function (event, ui) {
                     $("#searchField").val(ui.item.value);
                     selection.findByName();

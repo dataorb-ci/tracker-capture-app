@@ -130,7 +130,7 @@ will be printed to the console.
 ##### Changed
 
 - The logo in the `HeaderBar` components link to
-  `../dhis-web-commons-about/redirect.action` in stead of using the `startModule`
+  `../eb-commons-about/redirect.action` in stead of using the `startModule`
   system setting value directly. This makes using custom apps as start modules work
   correctly.
 

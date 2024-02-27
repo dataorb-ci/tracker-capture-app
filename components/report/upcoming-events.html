@@ -112,7 +112,7 @@
                                        min-date="today" 
                                        max-date="report.endDate ? report.endDate : ''" 
                                        ng-required="true"/> 
-                                <div ng-messages="outerForm.reportStartDate.$error" ng-if="interacted(outerForm.reportStartDate)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html"></div>
+                                <div ng-messages="outerForm.reportStartDate.$error" ng-if="interacted(outerForm.reportStartDate)" class="required" ng-messages-include="../web-commons/angular-forms/error-messages.html"></div>
                                 <input type="text" 
                                        name="reportEndDate" 
                                        placeholder="{{'end_date'| translate}} ({{dhis2CalendarFormat.keyDateFormat}})" 
@@ -122,7 +122,7 @@
                                        ng-model="report.endDate" 
                                        min-date="report.startDate ? report.startDate : today" 
                                        ng-required="true"/>                            
-                                <div ng-messages="outerForm.reportEndDate.$error" ng-if="interacted(outerForm.reportEndDate)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html"></div>
+                                <div ng-messages="outerForm.reportEndDate.$error" ng-if="interacted(outerForm.reportEndDate)" class="required" ng-messages-include="../web-commons/angular-forms/error-messages.html"></div>
                             </div>
                         </td>
                     </tr>

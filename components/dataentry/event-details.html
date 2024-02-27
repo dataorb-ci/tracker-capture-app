@@ -24,7 +24,7 @@
                class="form-control not-for-screen"
                ng-class="{'input-success': eventDateSaved}"
                ng-attr-value={{currentEvent.eventDate}}>
-        <div ng-messages="outerDataEntryForm.eventDate.$error" ng-if="interacted(outerDataEntryForm.eventDate)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html">
+        <div ng-messages="outerDataEntryForm.eventDate.$error" ng-if="interacted(outerDataEntryForm.eventDate)" class="required" ng-messages-include="../web-commons/angular-forms/error-messages.html">
         </div>
     </div>
     <div ng-if="!currentStage.hideDueDate && !registrationAndDataEntry && !currentStage.periodType"  class="col-md-6">
@@ -50,7 +50,7 @@
                class="form-control not-for-screen"
                ng-class="{'input-success': dueDateSaved}"
                ng-attr-value={{currentEvent.dueDate}}>        
-        <div ng-messages="outerDataEntryForm.dueDate.$error" ng-if="interacted(outerDataEntryForm.dueDate)" class="required" ng-messages-include="../dhis-web-commons/angular-forms/error-messages.html">                        
+        <div ng-messages="outerDataEntryForm.dueDate.$error" ng-if="interacted(outerDataEntryForm.dueDate)" class="required" ng-messages-include="../web-commons/angular-forms/error-messages.html">                        
         </div>
     </div>    
 </div>

@@ -116,7 +116,7 @@ module.exports = {
         inline: true,
         compress: true,
         proxy: [
-            { path: ['/api/', '/dhis-web-commons/', '/icons/'], target: dhisConfig.baseUrl, bypass: log },
+            { path: ['/api/', '/web-commons/', '/icons/'], target: dhisConfig.baseUrl, bypass: log },
         ],
     },
 };

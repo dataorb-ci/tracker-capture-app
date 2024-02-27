@@ -33,7 +33,7 @@ const styles = {
     activeItem: {
         fontSize: 14,
         fontWeight: 700,
-        color: '#2196f3',
+        color: '#141A46',
         backgroundColor: '#e0e0e0',
         borderRadius: 5,
         margin: '0 8px',

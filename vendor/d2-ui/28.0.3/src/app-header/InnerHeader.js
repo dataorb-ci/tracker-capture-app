@@ -6,7 +6,7 @@ import getBaseUrlFromD2ApiUrl from './getBaseUrlFromD2ApiUrl';
 
 const defaultStyle = 'light_blue';
 const defaultStylesheetUrl = 'light_blue/light_blue.css';
-const stylesLocation = 'dhis-web-commons/css';
+const stylesLocation = 'web-commons/css';
 
 function islocalStorageSupported() {
     try {
@@ -173,7 +173,7 @@ const InnerHeader = React.createClass({
             minWidth: 175,
         };
 
-        const linkHref = [this.getBaseUrl(), 'dhis-web-commons-about/redirect.action'].join('/');
+        const linkHref = [this.getBaseUrl(), 'web-commons-about/redirect.action'].join('/');
 
         const largeScreensInnerHeader = Object.assign({ display: 'flex', minWidth: 450 + 175, overflow: 'hidden', textOverflow: 'ellipsis' }, styles.headerTitle);
 

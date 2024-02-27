@@ -20,10 +20,10 @@ map(addTranslationLabel,
 
 const getMenuItemForCategory = categoryKey => ({
     name: settingsCategories[categoryKey].pageLabel,
-    defaultAction: `/dhis-web-settings/#/${categoryKey}`,
-    icon: '/icons/dhis-web-settings.png',
+    defaultAction: `/web-settings/#/${categoryKey}`,
+    icon: '/icons/web-settings.png',
     description: '',
-    parentApp: 'dhis-web-settings',
+    parentApp: 'web-settings',
 });
 
 const settingsCategoryItemMap = Object.keys(settingsCategories).map(getMenuItemForCategory);

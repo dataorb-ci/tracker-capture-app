@@ -16,7 +16,7 @@
  */
 
 var dhis2BaseUrl = "..";
-var organisationUnitTreePath = dhis2BaseUrl + "/dhis-web-commons/ouwt/";
+var organisationUnitTreePath = dhis2BaseUrl + "/web-commons/ouwt/";
 var organisationUnits = {};
 
 var selection = new Selection();
@@ -43,7 +43,7 @@ dhis2.ou.memoryOnly = $('html').hasClass('ie7') || $('html').hasClass('ie8');
 $(function ()
 {
     dhis2BaseUrl = dhis2.util.BASEURL || dhis2BaseUrl;
-    organisationUnitTreePath = dhis2BaseUrl + "/dhis-web-commons/ouwt/";
+    organisationUnitTreePath = dhis2BaseUrl + "/web-commons/ouwt/";
     var adapters = [];
     var partial_adapters = [];
 
@@ -303,7 +303,7 @@ function Selection()
         format = format || "json";
 
         return $.ajax( {
-            url: dhis2BaseUrl + '/dhis-web-commons-ajax-json/getOrganisationUnitTree.action',
+            url: dhis2BaseUrl + '/web-commons-ajax-json/getOrganisationUnitTree.action',
             data: {
                 versionOnly: versionOnly,
                 offlineLevel: offlineLevel
@@ -704,7 +704,7 @@ function Selection()
         }
         else {
             $.ajax( {
-                url: dhis2BaseUrl + '/dhis-web-commons-ajax-json/getOrganisationUnitTree.action',
+                url: dhis2BaseUrl + '/web-commons-ajax-json/getOrganisationUnitTree.action',
                 data: { byName: name }
             } ).done(function( data ) {
                 if( data.realRoot === undefined ) {
@@ -738,11 +738,11 @@ function Selection()
 
 function Subtree() {
     this.ajaxGetChildren = function( parentId ) {
-        return $.post( dhis2BaseUrl + '/dhis-web-commons-ajax-json/getOrganisationUnitTree.action?parentId=' + parentId);
+        return $.post( dhis2BaseUrl + '/web-commons-ajax-json/getOrganisationUnitTree.action?parentId=' + parentId);
     };
 
     this.ajaxGetLeaf = function( parentId ) {
-        return $.post( dhis2BaseUrl + '/dhis-web-commons-ajax-json/getOrganisationUnitTree.action?leafId=' + parentId);
+        return $.post( dhis2BaseUrl + '/web-commons-ajax-json/getOrganisationUnitTree.action?leafId=' + parentId);
     };
 
     this.toggle = function( unitId ) {

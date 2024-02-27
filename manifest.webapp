@@ -4,7 +4,7 @@
     "description": "Tracker Capture Pro App",
     "launch_path": "index.html",
     "icons": {
-        "48": "img/dhis-web-tracker-capture.png"
+        "48": "img/web-tracker-capture.png"
     },
     "appType": "APP",
     "core_app": true,
