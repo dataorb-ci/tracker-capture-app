@@ -8,7 +8,7 @@ dhis2.tc.emptyOrganisationUnits = false;
 dhis2.util.namespace('cachecleaner');
 
 cachecleaner.clean = function(){
-    indexedDB.deleteDatabase("dhis2tc");
+    indexedDB.deleteDatabase("dataorbtc");
     indexedDB.deleteDatabase("dhis2ou");
     localStorage.clear();
     sessionStorage.clear();
@@ -39,7 +39,7 @@ if( dhis2.tc.memoryOnly ) {
 }
 
 dhis2.tc.store = new dhis2.storage.Store({
-    name: 'dhis2tc',
+    name: 'dataorbtc',
     adapters: [dhis2.storage.IndexedDBAdapter, dhis2.storage.DomSessionStorageAdapter, dhis2.storage.InMemoryAdapter],
     objectStores: ['programs', 'trackedEntityTypes', 'attributes', 'relationshipTypes', 'optionSets', 'programIndicators', 'ouLevels', 'programRuleVariables', 'programRules','constants', 'programAccess','programStageAccess', 'trackedEntityTypeAccess','optionGroups', 'organisationUnits']
 });

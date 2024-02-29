@@ -8333,7 +8333,7 @@
 	    };
 	}).factory('TCStorageService', function () {
 	    var store = new dhis2.storage.Store({
-	        name: "dhis2tc",
+	        name: "dataorbtc",
 	        adapters: [dhis2.storage.IndexedDBAdapter, dhis2.storage.DomSessionStorageAdapter, dhis2.storage.InMemoryAdapter],
 	        objectStores: ['programs', 'trackedEntityTypes', 'attributes', 'relationshipTypes', 'optionSets', 'programIndicators', 'ouLevels', 'programRuleVariables', 'programRules', 'constants', 'dataElements', 'programAccess', 'programStageAccess', 'trackedEntityTypeAccess', 'optionGroups', 'organisationUnits']
 	    });

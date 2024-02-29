@@ -26,7 +26,7 @@ var dhis2 = dhis2 || {};
 dhis2.ou = dhis2.ou || {};
 dhis2.ou.event = dhis2.ou.event || {};
 
-var OU_STORE_NAME = "dhis2ou";
+var OU_STORE_NAME = "dataorbou";
 var OU_KEY = "ou";
 var OU_PARTIAL_KEY = "ouPartial";
 var OU_ROOTS_KEY = "ouRoots";
